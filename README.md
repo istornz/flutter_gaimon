@@ -1,5 +1,5 @@
 <p align="center">
-  <img style="max-width: 200px" src="https://s10.gifyu.com/images/tumblr_60437337599ab4b39562c229702afdbd_046a99c1_640.png" />
+  <img style="max-width: 300px; max-height: 300px" src="https://s10.gifyu.com/images/tumblr_60437337599ab4b39562c229702afdbd_046a99c1_640.png" />
 </p>
 
 # Gaimon

@@ -1,5 +1,5 @@
 <p align="center">
-  <img style="width: 300px; max-width: 300px" src="https://s10.gifyu.com/images/tumblr_60437337599ab4b39562c229702afdbd_046a99c1_640.png" />
+  <img style="width: 300px; max-width: 300px" src="https://s10.gifyu.com/images/tumblr_60437337599ab4b39562c229702afdbd_046a99c1_640ee5ee3a5c2f84cc9.png" />
 </p>
 
 # Gaimon
@@ -11,7 +11,7 @@ A Flutter plugin to **fully** support Haptic feedback **with custom pattern**.
 Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It support custom pattern with ```.ahap``` file support.
 
 <p align="center">
-  <img style="height: 400px; max-height: 400px" src="https://s10.gifyu.com/images/IMG_DA4FBB103B3B-1.jpg" />
+  <img style="height: 400px; max-height: 400px" src="https://s10.gifyu.com/images/IMG_DA4FBB103B3B-17e26cb70876cc1a8.jpg" />
 </p>
 
 ## 👻 Getting started

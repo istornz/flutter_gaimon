@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Patterns',
+                        'Patterns (iOS for now)',
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       Expanded(

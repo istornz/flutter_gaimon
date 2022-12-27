@@ -11,7 +11,7 @@ class Gaimon {
   }
 
   /// generate a selection impact vibration
-  static void selection() => _channel.invokeMethod('selection');
+  static void selection() => HapticFeedback.selectionClick();
 
   /// generate an error impact vibration
   static void error() => _channel.invokeMethod('error');
@@ -23,13 +23,13 @@ class Gaimon {
   static void warning() => _channel.invokeMethod('warning');
 
   /// generate a heavy impact vibration
-  static void heavy() => _channel.invokeMethod('heavy');
+  static void heavy() => HapticFeedback.heavyImpact();
 
   /// generate a medium impact vibration
-  static void medium() => _channel.invokeMethod('medium');
+  static void medium() => HapticFeedback.mediumImpact();
 
   /// generate a light impact vibration
-  static void light() => _channel.invokeMethod('light');
+  static void light() => HapticFeedback.lightImpact();
 
   /// generate a rigid impact vibration
   static void rigid() => _channel.invokeMethod('rigid');

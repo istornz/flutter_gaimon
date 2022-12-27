@@ -29,45 +29,52 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when (call.method) {
+      "canSupportsHaptic" -> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          result.success(vibrator.hasVibrator())
+        } else {
+          result.success(false)
+        }
+      }
       "selection" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "light" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createWaveform(longArrayOf(3, 100), intArrayOf(
                   VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "medium" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createWaveform(longArrayOf(40, 100), intArrayOf(
                   VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "heavy" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createWaveform(longArrayOf(90, 100), intArrayOf(
                   VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "rigid" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createWaveform(longArrayOf(90, 70), intArrayOf(
                   VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "soft" -> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val effect = VibrationEffect.createWaveform(longArrayOf(40, 60), intArrayOf(
                   VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
+          vibrate(effect)
         }
       }
       "success" -> {
@@ -77,7 +84,7 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
 
           if (vibrator.hasAmplitudeControl()) {
             val effect = VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, -1)
-            vibrator.vibrate(effect)
+            vibrate(effect)
           }
         }
       }
@@ -88,7 +95,7 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
 
           if (vibrator.hasAmplitudeControl()) {
             val effect = VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, -1)
-            vibrator.vibrate(effect)
+            vibrate(effect)
           }
         }
       }
@@ -99,7 +106,7 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
 
           if (vibrator.hasAmplitudeControl()) {
             val effect = VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, -1)
-            vibrator.vibrate(effect)
+            vibrate(effect)
           }
         }
       }
@@ -110,6 +117,11 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
         result.notImplemented()
       }
     }
+  }
+
+  fun vibrate(VibrationEffect: effect) {
+    vibrator.cancel()
+    vibrator.vibrate(effect)
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

@@ -1,7 +1,6 @@
 <p align="center">
   <img src="https://github.com/istornz/gaimon/blob/main/.github/images/gaimon.jpg?raw=true" />
 </p>
-<br />
 
 <div align="center" style="display: flex;align-items: center;justify-content: center;">
   <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/points/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>

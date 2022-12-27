@@ -1,6 +1,6 @@
 name: gaimon
 description: A Flutter plugin to fully support Haptic feedback with custom pattern.
-version: 1.0.1
+version: 1.1.0
 homepage: https://dimitridessus.fr
 repository: https://github.com/istornz/Gaimon
 

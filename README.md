@@ -1,17 +1,24 @@
 <p align="center">
-  <img style="width: 300px; max-width: 300px" src="https://raw.githubusercontent.com/istornz/gaimon/main/.github/images/gaimon.png" />
+  <img src="https://github.com/istornz/gaimon/blob/main/.github/images/gaimon.jpg?raw=true" />
 </p>
+<br />
 
-# Gaimon
-
-A Flutter plugin to **fully** support Haptic feedback **with custom pattern**.
+<div align="center" style="display: flex;align-items: center;justify-content: center;">
+  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/points/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
+  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/likes/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
+  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/popularity/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
+  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/v/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
+  <a href="https://github.com/istornz/gaimon"><img src="https://img.shields.io/github/stars/istornz/gaimon?style=for-the-badge" /></a>
+</div>
+<br />
 
 ## 🧐 What is it ?
 
 Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It support custom pattern with ```.ahap``` file support.
+<br />
 
 <p align="center">
-  <img style="height: 400px; max-height: 400px" src="https://raw.githubusercontent.com/istornz/gaimon/main/.github/images/preview.jpg" />
+  <img style="height: 500px; max-height: 500px" src="https://raw.githubusercontent.com/istornz/gaimon/main/.github/images/preview.jpg" />
 </p>
 
 ## 👻 Getting started
@@ -37,6 +44,7 @@ Quite simple right ? 😎
 
 | Name | Description | Android  | iOS |
 | ---- | ----------- | -------- | --- |
+| ```.canSupportsHaptic()``` | Check if haptic are supported or not | ✅ | ✅ |
 | ```.selection()``` | Use it on a tap event | ✅ | ✅ |
 | ```.error()``` | Use it when an error occur | ✅ | ✅ |
 | ```.success()``` | Use it when a successful event occur | ✅ | ✅ |
@@ -52,3 +60,7 @@ Quite simple right ? 😎
 
 - [ ] Support pattern for Android (send ```.ahap``` file & convert it to waveform).
 - [ ] Support audio file to haptic feedback (generate correct feedback for audio file).
+
+## 👥 Contributions
+
+Contributions are welcome. Contribute by creating a PR or create an issue 🎉.

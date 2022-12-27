@@ -1,3 +1,10 @@
+## 1.1.0
+- Implement ```canSupportsHaptic()``` method for Android.
+- Change logo.
+- Use Flutter SDK haptic for basic vibration effects.
+- Update README.md.
+- Upgrade dependencies.
+
 ## 1.0.1
 
 - Support Flutter 3.

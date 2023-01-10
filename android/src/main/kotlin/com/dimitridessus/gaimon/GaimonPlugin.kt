@@ -119,7 +119,7 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
     }
   }
 
-  fun vibrate(VibrationEffect: effect) {
+  fun vibrate(effect: VibrationEffect) {
     vibrator.cancel()
     vibrator.vibrate(effect)
   }

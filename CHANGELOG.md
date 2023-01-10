@@ -1,3 +1,7 @@
+# 1.1.1
+- Fix Android build.
+- Upgrade Gradle version.
+
 ## 1.1.0
 - Implement ```canSupportsHaptic()``` method for Android.
 - Change logo.

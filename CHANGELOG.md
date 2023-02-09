@@ -1,3 +1,7 @@
+# 1.1.1+1
+
+- Add screenshots in pubspec.yaml
+
 # 1.1.1
 - Fix Android build.
 - Upgrade Gradle version.

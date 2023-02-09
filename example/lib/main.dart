@@ -78,7 +78,9 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,8 +102,9 @@ class _MyAppState extends State<MyApp> {
                             ),
                             TextButton(
                               onPressed: () async {
-                                final String response = await rootBundle
-                                    .loadString('assets/haptics/heartbeats.ahap');
+                                final String response =
+                                    await rootBundle.loadString(
+                                        'assets/haptics/heartbeats.ahap');
                                 Gaimon.patternFromData(response);
                               },
                               child: const Text('💗 Heartbeat'),

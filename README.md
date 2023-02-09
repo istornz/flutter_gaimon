@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/istornz/gaimon/blob/main/.github/images/gaimon.jpg?raw=true" />
+  <img src="https://github.com/istornz/gaimon/blob/main/images/gaimon.jpg?raw=true" />
 </p>
 
 <div align="center" style="display: flex;align-items: center;justify-content: center;">
@@ -17,7 +17,7 @@ Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedbac
 <br />
 
 <p align="center">
-  <img style="height: 500px; max-height: 500px" src="https://raw.githubusercontent.com/istornz/gaimon/main/.github/images/preview.jpg" />
+  <img style="height: 500px; max-height: 500px" src="https://raw.githubusercontent.com/istornz/gaimon/main/images/preview.jpg" />
 </p>
 
 ## 👻 Getting started

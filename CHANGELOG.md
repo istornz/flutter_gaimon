@@ -1,5 +1,7 @@
-# 1.1.1+1
+# 1.1.2
+- Upgrade Kotlin version to 1.7.20 (thanks to @ductranit).
 
+# 1.1.1+1
 - Add screenshots in pubspec.yaml
 
 # 1.1.1

@@ -1,3 +1,6 @@
+# 1.2.0
+- Upgrade Dart sdk to 3.
+
 # 1.1.2
 - Upgrade Kotlin version to 1.7.20 (thanks to @ductranit).
 

@@ -55,6 +55,14 @@ Quite simple right ? 😎
 | ```.soft()``` | A medium but speed feedback | ✅ | ✅ |
 | ```.pattern(String data)``` | Read a custom ```.ahap``` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ⛔️  | ✅ |
 
+## ❓ FAQ
+
+- Why custom pattern is not working on my iPhone?
+> Custom vibration patterns is only supported on **iPhone 8 and newer devices**.
+
+- Why custom pattern is not working on Android?
+> This feature is only available on iOS for now (a PR would be appreciated 🤗).
+
 ## 🎯 Roadmap
 
 - [ ] Support pattern for Android (send ```.ahap``` file & convert it to waveform).

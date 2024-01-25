@@ -1,3 +1,6 @@
+# 1.2.2
+- Add Android namespace (thanks to @FauconSpartiate).
+
 # 1.2.1
 - Upgrade dependencies.
 

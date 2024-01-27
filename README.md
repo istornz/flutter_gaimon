@@ -11,9 +11,15 @@
 </div>
 <br />
 
+<div align="center">
+  <a href="https://radion-app.com" target="_blank" alt="Radion - Ultimate gaming app">
+    <img src="./images/radion.png" width="600px" alt="Radion banner - Ultimate gaming app" />
+  </a>
+</div>
+
 ## 🧐 What is it ?
 
-Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It support custom pattern with ```.ahap``` file support.
+Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It support custom pattern with `.ahap` file support.
 <br />
 
 <p align="center">
@@ -41,31 +47,32 @@ Quite simple right ? 😎
 
 ## 📘 Documentation
 
-| Name | Description | Android  | iOS |
-| ---- | ----------- | -------- | --- |
-| ```.canSupportsHaptic()``` | Check if haptic are supported or not | ✅ | ✅ |
-| ```.selection()``` | Use it on a tap event | ✅ | ✅ |
-| ```.error()``` | Use it when an error occur | ✅ | ✅ |
-| ```.success()``` | Use it when a successful event occur | ✅ | ✅ |
-| ```.warning()``` | Use it when a warning event occur | ✅ | ✅ |
-| ```.heavy()``` | Huge feedback | ✅ | ✅ |
-| ```.medium()``` | Medium feedback | ✅ | ✅ |
-| ```.light()``` | Light feedback | ✅ | ✅ |
-| ```.rigid()``` | A huge but speed feedback | ✅ | ✅ |
-| ```.soft()``` | A medium but speed feedback | ✅ | ✅ |
-| ```.pattern(String data)``` | Read a custom ```.ahap``` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ⛔️  | ✅ |
+| Name                    | Description                                                                                           | Android | iOS |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- | ------- | --- |
+| `.canSupportsHaptic()`  | Check if haptic are supported or not                                                                  | ✅      | ✅  |
+| `.selection()`          | Use it on a tap event                                                                                 | ✅      | ✅  |
+| `.error()`              | Use it when an error occur                                                                            | ✅      | ✅  |
+| `.success()`            | Use it when a successful event occur                                                                  | ✅      | ✅  |
+| `.warning()`            | Use it when a warning event occur                                                                     | ✅      | ✅  |
+| `.heavy()`              | Huge feedback                                                                                         | ✅      | ✅  |
+| `.medium()`             | Medium feedback                                                                                       | ✅      | ✅  |
+| `.light()`              | Light feedback                                                                                        | ✅      | ✅  |
+| `.rigid()`              | A huge but speed feedback                                                                             | ✅      | ✅  |
+| `.soft()`               | A medium but speed feedback                                                                           | ✅      | ✅  |
+| `.pattern(String data)` | Read a custom `.ahap` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ⛔️     | ✅  |
 
 ## ❓ FAQ
 
 - Why custom pattern is not working on my iPhone?
-> Custom vibration patterns is only supported on **iPhone 8 and newer devices**.
+
+  > Custom vibration patterns is only supported on **iPhone 8 and newer devices**.
 
 - Why custom pattern is not working on Android?
-> This feature is only available on iOS for now (a PR would be appreciated 🤗).
+  > This feature is only available on iOS for now (a PR would be appreciated 🤗).
 
 ## 🎯 Roadmap
 
-- [ ] Support pattern for Android (send ```.ahap``` file & convert it to waveform).
+- [ ] Support pattern for Android (send `.ahap` file & convert it to waveform).
 - [ ] Support audio file to haptic feedback (generate correct feedback for audio file).
 
 ## 👥 Contributions

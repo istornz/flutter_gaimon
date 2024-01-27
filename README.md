@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/istornz/gaimon/blob/main/images/gaimon.jpg?raw=true" />
+  <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/gaimon.jpg?raw=true" />
 </p>
 
 <div align="center" style="display: flex;align-items: center;justify-content: center;">
@@ -13,7 +13,7 @@
 
 <div align="center">
   <a href="https://radion-app.com" target="_blank" alt="Radion - Ultimate gaming app">
-    <img src="./images/radion.png" width="600px" alt="Radion banner - Ultimate gaming app" />
+    <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/radion.png" width="600px" alt="Radion banner - Ultimate gaming app" />
   </a>
 </div>
 

@@ -111,13 +111,24 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
         }
       }
       "pattern" -> {
-        // TODO: try to read .ahap file & convert it to waveform
+        var callArgs: HashMap<String, Any> = call.arguments as HashMap<String, Any>
+
+        val mVibratePattern = (callArgs["timings"] as ArrayList<Long>).toLongArray()
+        val mAmplitudes = (callArgs["amplitudes"] as ArrayList<Int>).toIntArray()
+
+        val repeat = if (callArgs["repeat"] as Boolean) 1 else -1
+
+        if (vibrator.hasAmplitudeControl()) {
+          val effect = VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, repeat)
+          vibrate(effect)
+        }
       }
       else -> {
         result.notImplemented()
       }
     }
   }
+
 
   fun vibrate(effect: VibrationEffect) {
     vibrator.cancel()

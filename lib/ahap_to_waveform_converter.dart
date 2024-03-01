@@ -35,8 +35,6 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> ahapEvents) {
 
   ahapEvents.sort((a, b) => a.time.compareTo(b.time));
 
-  // where we are currently at in seconds.
-
   // find where all cuts in events are
   List<int> borders = [0];
   for (var event in ahapEvents) {

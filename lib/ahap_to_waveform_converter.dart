@@ -24,7 +24,7 @@ List<AhapEvent> parseAhapEventsFromJson(String ahap) {
 
     return ahapEvents;
   } catch (e) {
-    throw Exception('Invalid AHAP JSON');
+    throw Exception('Invalid AHAP JSON $e');
   }
 }
 

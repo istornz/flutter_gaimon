@@ -63,7 +63,7 @@ void main() {
       expect(ahapEvents[1].sharpness, 0.5);
     });
 
-    test('parseAhapEventsFromJson - transxient events', () {
+    test('parseAhapEventsFromJson - transcient events', () {
       const ahapTransient = '''
     {
       "Pattern": [
@@ -112,6 +112,131 @@ void main() {
       expect(ahapEventsTransient[1].duration, 0.1);
       expect(ahapEventsTransient[1].intensity, 0.829);
       expect(ahapEventsTransient[1].sharpness, 0.0);
+    });
+
+    test('parseAhapEventsFromJson - Dynamic Parameters', () {
+      const ahapTransient = '''
+    {
+      "Pattern": [
+        {
+          "Event": {
+            "Time": 0.0,
+            "EventType": "HapticContinuous",
+            "EventDuration": 0.1,
+            "EventParameters": [
+              {
+                "ParameterID": "HapticIntensity",
+                "ParameterValue": 0.5
+              },
+              {
+                "ParameterID": "HapticSharpness",
+                "ParameterValue": 0.5
+              }
+            ]
+          }
+        },
+       {
+      "Parameter" : {
+        "Time" : 1.683,
+        "ParameterValue" : 0.5,
+        "ParameterID" : "HapticIntensityControl"
+      }
+    }
+      ]
+    }
+    ''';
+
+      final ahapEventsTransient = parseAhapEventsFromJson(ahapTransient);
+      expect(ahapEventsTransient.length, 2);
+      expect(ahapEventsTransient[0].time, 0.0);
+      expect(ahapEventsTransient[0].duration, 0.1);
+      expect(ahapEventsTransient[0].intensity, 0.5);
+      expect(ahapEventsTransient[0].sharpness, 0.5);
+
+      expect(ahapEventsTransient[1].time, 1.683);
+      expect(ahapEventsTransient[1].duration, 0.0);
+      expect(ahapEventsTransient[1].intensity, 0.5);
+      expect(ahapEventsTransient[1].sharpness, 0.0);
+    });
+
+    test('parseAhapEventsFromJson - Parameter Curves', () {
+      const ahapTransient = '''
+    {
+      "Pattern": [
+        {
+          "Event": {
+            "Time": 0.0,
+            "EventType": "HapticContinuous",
+            "EventDuration": 0.1,
+            "EventParameters": [
+              {
+                "ParameterID": "HapticIntensity",
+                "ParameterValue": 0.5
+              },
+              {
+                "ParameterID": "HapticSharpness",
+                "ParameterValue": 0.5
+              }
+            ]
+          }
+        },
+      {
+        "ParameterCurve" : {
+          "Time" : 0.595,
+          "ParameterID" : "HapticIntensityControl",
+          "ParameterCurveControlPoints" : [
+            {
+              "Time" : 0,
+              "ParameterValue" : 0.876
+            },
+            {
+              "ParameterValue" : 0.419,
+              "Time" : 0.16
+            },
+            {
+              "ParameterValue" : 0.355,
+              "Time" : 0.26
+            },
+            {
+              "Time" : 0.36,
+              "ParameterValue" : 0.355
+            }
+          ]
+          }
+        }
+      ]
+    }
+    ''';
+
+      final ahapEventsTransient = parseAhapEventsFromJson(ahapTransient);
+      expect(ahapEventsTransient.length, 37);
+      expect(ahapEventsTransient[0].time, 0.0);
+      expect(ahapEventsTransient[0].duration, 0.1);
+      expect(ahapEventsTransient[0].intensity, 0.5);
+      expect(ahapEventsTransient[0].sharpness, 0.5);
+
+      expect(ahapEventsTransient[1].time, 0.595);
+      expect(ahapEventsTransient[1].duration, 0);
+      expect(ahapEventsTransient[1].intensity, 0.876);
+      expect(ahapEventsTransient[1].sharpness, 0.0);
+
+      // check event in the middle of 0 and 0.16
+      expect(ahapEventsTransient[9].time, 0.6749999999999999);
+      expect(ahapEventsTransient[9].duration, 0);
+      expect(ahapEventsTransient[9].intensity, 0.6475);
+      expect(ahapEventsTransient[9].sharpness, 0.0);
+
+      // check event on 0.16
+      expect(ahapEventsTransient[17].time, 0.755);
+      expect(ahapEventsTransient[17].duration, 0);
+      expect(ahapEventsTransient[17].intensity, 0.419);
+      expect(ahapEventsTransient[17].sharpness, 0.0);
+
+      // check last event
+      expect(ahapEventsTransient[36].time, 0.9450000000000001);
+      expect(ahapEventsTransient[36].duration, 0);
+      expect(ahapEventsTransient[36].intensity, 0.355);
+      expect(ahapEventsTransient[36].sharpness, 0.0);
     });
 
     test('parseAhapEvents from Large Files', () {

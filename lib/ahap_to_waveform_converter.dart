@@ -18,8 +18,8 @@ List<AhapEvent> parseAhapEventsFromJson(String ahap) {
 
     for (var event in events) {
       Map<String, dynamic> eventMap = event as Map<String, dynamic>;
-      AhapEvent ahapEvent = AhapEvent.fromMap(eventMap);
-      ahapEvents.add(ahapEvent);
+      List<AhapEvent> ahapEvent = AhapEvent.fromMap(eventMap);
+      ahapEvents.addAll(ahapEvent);
     }
 
     return ahapEvents;

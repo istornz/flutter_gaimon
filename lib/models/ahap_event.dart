@@ -1,3 +1,5 @@
+import 'package:gaimon/ahap_constants.dart';
+
 class AhapEvent {
   final double time;
   final double duration;
@@ -29,37 +31,46 @@ class AhapEvent {
   //    ]
   //  }
   //}
-  factory AhapEvent.fromMap(Map<String, dynamic> map) {
-    Map<String, dynamic> event = map['Event'] as Map<String, dynamic>;
+  static List<AhapEvent> fromMap(Map<String, dynamic> map) {
+    if (map.containsKey(AhapConstants.keys.event)) {
+      return _mapBasicEvents(map);
+    }
 
-    List parameters = event['EventParameters'] as List;
+    throw Exception('No support yet for this type of event: ${map.keys.first}');
+  }
+
+  static List<AhapEvent> _mapBasicEvents(Map<String, dynamic> map) {
+    Map<String, dynamic> event = map[AhapConstants.keys.event] as Map<String, dynamic>;
+
+    List parameters = event[AhapConstants.keys.eventParameters] as List;
     Map<String, dynamic>? intensityMap;
     Map<String, dynamic>? sharpnessMap;
 
     for (var p in parameters) {
       Map<String, dynamic> parameter = p as Map<String, dynamic>;
 
-      if (parameter['ParameterID'] == 'HapticIntensity') {
+      if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticIntensity) {
         intensityMap = parameter;
-      } else if (parameter['ParameterID'] == 'HapticSharpness') {
+      } else if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticSharpness) {
         sharpnessMap = parameter;
       }
     }
 
-    // try cast EventDuration to double else use 0
     double eventDuration;
 
-    try {
-      eventDuration = (event['EventDuration'] as num).toDouble();
-    } catch (e) {
-      eventDuration = 0;
+    if (event[AhapConstants.keys.eventType] == AhapConstants.keys.hapticContinuous) {
+      eventDuration = (event[AhapConstants.keys.eventDuration] as num).toDouble();
+    } else {
+      eventDuration = AhapConstants.transientEventDuration;
     }
 
-    return AhapEvent(
-      time: (event['Time'] as num).toDouble(),
-      duration: eventDuration,
-      intensity: intensityMap != null ? (intensityMap['ParameterValue'] as num).toDouble() : 0,
-      sharpness: sharpnessMap != null ? (sharpnessMap['ParameterValue'] as num).toDouble() : 0,
-    );
+    return [
+      AhapEvent(
+        time: (event[AhapConstants.keys.time] as num).toDouble(),
+        duration: eventDuration,
+        intensity: intensityMap != null ? (intensityMap[AhapConstants.keys.parameterValue] as num).toDouble() : 0,
+        sharpness: sharpnessMap != null ? (sharpnessMap[AhapConstants.keys.parameterValue] as num).toDouble() : 0,
+      )
+    ];
   }
 }

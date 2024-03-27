@@ -63,6 +63,57 @@ void main() {
       expect(ahapEvents[1].sharpness, 0.5);
     });
 
+    test('parseAhapEventsFromJson - transxient events', () {
+      const ahapTransient = '''
+    {
+      "Pattern": [
+        {
+          "Event": {
+            "Time": 0.0,
+            "EventType": "HapticContinuous",
+            "EventDuration": 0.1,
+            "EventParameters": [
+              {
+                "ParameterID": "HapticIntensity",
+                "ParameterValue": 0.5
+              },
+              {
+                "ParameterID": "HapticSharpness",
+                "ParameterValue": 0.5
+              }
+            ]
+          }
+        },
+      {
+        "Event" : {
+          "EventType" : "HapticTransient",
+          "EventParameters" : [
+            {
+              "ParameterID" : "HapticIntensity",
+              "ParameterValue" : 0.829
+           }
+          ],
+          "Name" : "Haptic Event 2",
+          "Time" : 0.997
+          }
+        }
+      ]
+    }
+    ''';
+
+      final ahapEventsTransient = parseAhapEventsFromJson(ahapTransient);
+      expect(ahapEventsTransient.length, 2);
+      expect(ahapEventsTransient[0].time, 0.0);
+      expect(ahapEventsTransient[0].duration, 0.1);
+      expect(ahapEventsTransient[0].intensity, 0.5);
+      expect(ahapEventsTransient[0].sharpness, 0.5);
+
+      expect(ahapEventsTransient[1].time, 0.997);
+      expect(ahapEventsTransient[1].duration, 0.1);
+      expect(ahapEventsTransient[1].intensity, 0.829);
+      expect(ahapEventsTransient[1].sharpness, 0.0);
+    });
+
     test('parseAhapEvents from Large Files', () {
       final ahapEvents = parseAhapEventsFromJson(ahapHeartbeat);
       expect(ahapEvents.length, 82);

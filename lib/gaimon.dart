@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:gaimon/ahap_to_waveform_converter.dart';
 
 class Gaimon {
   static const MethodChannel _channel = MethodChannel('gaimon');
@@ -38,10 +40,31 @@ class Gaimon {
   static void soft() => _channel.invokeMethod('soft');
 
   /// generate a custom pattern impact vibration
-  static void patternFromData(String data) => _channel.invokeMethod(
+  static void patternFromData(String data) => Platform.isAndroid
+      ? _patternFromAhapToWaveform(data)
+      : _channel.invokeMethod(
+          'pattern',
+          {
+            'data': data,
+          },
+        );
+
+  static void _patternFromAhapToWaveform(String data) {
+    final waveform = ahapToWaveform(data);
+    patternFromWaveForm(
+      waveform.timings,
+      waveform.amplitudes,
+      waveform.repeat,
+    );
+  }
+
+  /// generate a custom pattern impact vibration from waveform (android only)
+  static void patternFromWaveForm(List<int> timings, List<int> amplitudes, bool repeat) => _channel.invokeMethod(
         'pattern',
         {
-          'data': data,
+          'timings': timings,
+          'amplitudes': amplitudes,
+          'repeat': repeat,
         },
       );
 }

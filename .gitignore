@@ -27,3 +27,8 @@
 .dart_tool/
 .packages
 build/
+
+# FVM Version Cache
+.fvm/
+.fvmrc
+.vscode/settings.json

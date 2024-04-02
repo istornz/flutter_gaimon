@@ -1,3 +1,8 @@
+# 1.3.0
+- Add `.ahab` support for Android (thanks to @Bassiuz).
+- Upgrade Android example project.
+- Upgrade dependencies.
+
 # 1.2.2
 - Add Android namespace (thanks to @FauconSpartiate).
 

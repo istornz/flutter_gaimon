@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
                     children: [
                       Text(
                         'Basic',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Expanded(
                         child: ListView(
@@ -86,8 +86,8 @@ class _MyAppState extends State<MyApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Patterns (iOS for now)',
-                        style: Theme.of(context).textTheme.headline5,
+                        'Patterns',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Expanded(
                         child: ListView(

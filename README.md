@@ -59,7 +59,7 @@ Quite simple right ? 😎
 | `.light()`              | Light feedback                                                                                        | ✅      | ✅  |
 | `.rigid()`              | A huge but speed feedback                                                                             | ✅      | ✅  |
 | `.soft()`               | A medium but speed feedback                                                                           | ✅      | ✅  |
-| `.pattern(String data)` | Read a custom `.ahap` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ⛔️     | ✅  |
+| `.pattern(String data)` | Read a custom `.ahap` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ✅     | ✅  |
 
 ## ❓ FAQ
 
@@ -67,12 +67,17 @@ Quite simple right ? 😎
 
   > Custom vibration patterns is only supported on **iPhone 8 and newer devices**.
 
-- Why custom pattern is not working on Android?
-  > This feature is only available on iOS for now (a PR would be appreciated 🤗).
-
 ## 🎯 Roadmap
 
-- [ ] Support pattern for Android (send `.ahap` file & convert it to waveform).
+- [x] Support pattern for Android (send `.ahap` file & convert it to waveform).
+  - [X] Parse .ahab json contents
+  - [X] Convert events in pattern to waveform
+  - [X] Send waveform to android native plugin to simulate waveform
+  - [x] Add support for parameters (https://developer.apple.com/documentation/corehaptics/representing-haptic-patterns-in-ahap-files)
+  - [x] Add support for Parameter curves
+  - [ ] Add support for AttackTime
+  - [ ] Add support for DecayTime
+  - [ ] Add support for Sustained Events
 - [ ] Support audio file to haptic feedback (generate correct feedback for audio file).
 
 ## 👥 Contributions

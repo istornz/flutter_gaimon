@@ -10,9 +10,9 @@ environment:
 
 screenshots:
   - description: 'Show how Gaimon works by displaying all patterns available in the plugin'
-    path: images/preview.jpg
+    path: images/preview.webp
   - description: 'Gaimon logo'
-    path: images/gaimon.jpg
+    path: images/gaimon.webp
 
 dependencies:
   flutter:

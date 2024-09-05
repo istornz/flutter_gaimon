@@ -1,3 +1,7 @@
+# 1.3.2
+- Convert static images to `webp`.
+- Upgrade dependencies.
+
 # 1.3.1
 - Upgrade dependencies.
 

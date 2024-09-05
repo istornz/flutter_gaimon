@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/gaimon.jpg?raw=true" />
+  <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/gaimon.webp?raw=true" />
 </p>
 
 <div align="center" style="display: flex;align-items: center;justify-content: center;">
@@ -13,7 +13,7 @@
 
 <div align="center">
   <a href="https://radion-app.com" target="_blank" alt="Radion - Ultimate gaming app">
-    <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/radion.png" width="600px" alt="Radion banner - Ultimate gaming app" />
+    <img src="https://raw.githubusercontent.com/istornz/gaimon/main/images/radion.webp" width="600px" alt="Radion banner - Ultimate gaming app" />
   </a>
 </div>
 
@@ -23,7 +23,7 @@ Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedbac
 <br />
 
 <p align="center">
-  <img style="height: 500px; max-height: 500px" src="https://raw.githubusercontent.com/istornz/gaimon/main/images/preview.jpg" />
+  <img style="height: 500px; max-height: 500px" src="https://raw.githubusercontent.com/istornz/gaimon/main/images/preview.webp" />
 </p>
 
 ## 👻 Getting started
@@ -59,7 +59,7 @@ Quite simple right ? 😎
 | `.light()`              | Light feedback                                                                                        | ✅      | ✅  |
 | `.rigid()`              | A huge but speed feedback                                                                             | ✅      | ✅  |
 | `.soft()`               | A medium but speed feedback                                                                           | ✅      | ✅  |
-| `.pattern(String data)` | Read a custom `.ahap` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ✅     | ✅  |
+| `.pattern(String data)` | Read a custom `.ahap` file (you can use [Captain AHAP](https://ahap.fancypixel.it/) to generate file) | ✅      | ✅  |
 
 ## ❓ FAQ
 
@@ -70,9 +70,9 @@ Quite simple right ? 😎
 ## 🎯 Roadmap
 
 - [x] Support pattern for Android (send `.ahap` file & convert it to waveform).
-  - [X] Parse .ahab json contents
-  - [X] Convert events in pattern to waveform
-  - [X] Send waveform to android native plugin to simulate waveform
+  - [x] Parse .ahab json contents
+  - [x] Convert events in pattern to waveform
+  - [x] Send waveform to android native plugin to simulate waveform
   - [x] Add support for parameters (https://developer.apple.com/documentation/corehaptics/representing-haptic-patterns-in-ahap-files)
   - [x] Add support for Parameter curves
   - [ ] Add support for AttackTime

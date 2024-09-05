@@ -261,7 +261,9 @@ void main() {
       expect(waveform.amplitudes[1], 128);
     });
 
-    test('adds an empty AhapEvent if starting time is after current total timing', () {
+    test(
+        'adds an empty AhapEvent if starting time is after current total timing',
+        () {
       final ahapEvents = [
         AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
         AhapEvent(time: 0.3, duration: 0.1, intensity: 0.5, sharpness: 0.5),
@@ -281,7 +283,9 @@ void main() {
       expect(waveform.amplitudes[3], 128);
     });
 
-    test('create waveform with overlapping events - higher intensity wins if comes last', () {
+    test(
+        'create waveform with overlapping events - higher intensity wins if comes last',
+        () {
       final ahapEvents = [
         AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
         AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
@@ -301,7 +305,9 @@ void main() {
       expect(waveform.amplitudes[3], 255);
     });
 
-    test('create waveform with overlapping events - higher intensity wins if comes first', () {
+    test(
+        'create waveform with overlapping events - higher intensity wins if comes first',
+        () {
       final ahapEvents2 = [
         AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
         AhapEvent(time: 0.1, duration: 0.1, intensity: 1, sharpness: 0.5),

@@ -36,9 +36,13 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> input) {
   // split input events into parameters and events
   input.sort((a, b) => a.time.compareTo(b.time));
 
-  List<AhapEvent> ahapEvents = input.where((element) => element.type == AhapEventType.hapticEvent).toList();
+  List<AhapEvent> ahapEvents = input
+      .where((element) => element.type == AhapEventType.hapticEvent)
+      .toList();
 
-  List<AhapEvent> parameters = input.where((element) => element.type == AhapEventType.hapticParameter).toList();
+  List<AhapEvent> parameters = input
+      .where((element) => element.type == AhapEventType.hapticParameter)
+      .toList();
 
   // find where all cuts in events are
   List<int> borders = [0];
@@ -54,7 +58,9 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> input) {
     int end = borders[i + 1];
 
     List<AhapEvent> filteredEvents = ahapEvents
-        .where((element) => element.time.toMs() < end && (element.time + element.duration).toMs() > start)
+        .where((element) =>
+            element.time.toMs() < end &&
+            (element.time + element.duration).toMs() > start)
         .toList();
 
     timings.add(end - start);
@@ -82,11 +88,13 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> input) {
 
     time += timing;
     // find matching parameters for this timing
-    AhapEvent? parameter = parameters.where((element) => element.time.toMs() <= time).lastOrNull;
+    AhapEvent? parameter =
+        parameters.where((element) => element.time.toMs() <= time).lastOrNull;
 
     // apply parameter to amplitude
     if (parameter != null) {
-      amplitudes[i] = max(0, min(255, (amplitude * parameter.intensity).round()));
+      amplitudes[i] =
+          max(0, min(255, (amplitude * parameter.intensity).round()));
     }
   }
 

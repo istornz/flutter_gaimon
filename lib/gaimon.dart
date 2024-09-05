@@ -59,7 +59,9 @@ class Gaimon {
   }
 
   /// generate a custom pattern impact vibration from waveform (android only)
-  static void patternFromWaveForm(List<int> timings, List<int> amplitudes, bool repeat) => _channel.invokeMethod(
+  static void patternFromWaveForm(
+          List<int> timings, List<int> amplitudes, bool repeat) =>
+      _channel.invokeMethod(
         'pattern',
         {
           'timings': timings,

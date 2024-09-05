@@ -99,14 +99,17 @@ class AhapEvent {
     },
   */
   static List<AhapEvent> _mapParameterCurves(Map<String, dynamic> map) {
-    Map<String, dynamic> parameterCurve = map[AhapConstants.keys.parameterCurve] as Map<String, dynamic>;
+    Map<String, dynamic> parameterCurve =
+        map[AhapConstants.keys.parameterCurve] as Map<String, dynamic>;
 
     double time = (parameterCurve[AhapConstants.keys.time] as num).toDouble();
 
-    List controlPoints = parameterCurve[AhapConstants.keys.parameterCurveControlPoints] as List;
+    List controlPoints =
+        parameterCurve[AhapConstants.keys.parameterCurveControlPoints] as List;
 
     AhapParameterType curveType =
-        parameterCurve[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticIntensityControl
+        parameterCurve[AhapConstants.keys.parameterId] ==
+                AhapConstants.keys.hapticIntensityControl
             ? AhapParameterType.hapticIntensity
             : AhapParameterType.hapticSharpness;
 
@@ -118,23 +121,31 @@ class AhapEvent {
       Map<String, dynamic> nextPoint = controlPoints[i + 1];
 
       double pointTime = (point[AhapConstants.keys.time] as num).toDouble();
-      double nextPointTime = (nextPoint[AhapConstants.keys.time] as num).toDouble();
+      double nextPointTime =
+          (nextPoint[AhapConstants.keys.time] as num).toDouble();
 
-      double pointValue = (point[AhapConstants.keys.parameterValue] as num).toDouble();
-      double nextPointValue = (nextPoint[AhapConstants.keys.parameterValue] as num).toDouble();
+      double pointValue =
+          (point[AhapConstants.keys.parameterValue] as num).toDouble();
+      double nextPointValue =
+          (nextPoint[AhapConstants.keys.parameterValue] as num).toDouble();
       double pointDuration = nextPointTime - pointTime;
 
-      for (double t = pointTime; t < nextPointTime; t += AhapConstants.curveFrequency) {
+      for (double t = pointTime;
+          t < nextPointTime;
+          t += AhapConstants.curveFrequency) {
         // this calculates the value of the curve at time t in a linear fashion
         // to-do: implement curve with attack / sustain / release
-        double value = pointValue + (nextPointValue - pointValue) * (t - pointTime) / pointDuration;
+        double value = pointValue +
+            (nextPointValue - pointValue) * (t - pointTime) / pointDuration;
 
         events.add(
           AhapEvent(
             time: time + t,
             duration: 0,
-            intensity: curveType == AhapParameterType.hapticIntensity ? value : 0,
-            sharpness: curveType == AhapParameterType.hapticSharpness ? value : 0,
+            intensity:
+                curveType == AhapParameterType.hapticIntensity ? value : 0,
+            sharpness:
+                curveType == AhapParameterType.hapticSharpness ? value : 0,
             type: AhapEventType.hapticParameter,
             parameterType: AhapParameterType.hapticIntensity,
           ),
@@ -146,19 +157,24 @@ class AhapEvent {
   }
 
   static List<AhapEvent> _mapParameterEvents(Map<String, dynamic> map) {
-    Map<String, dynamic> parameter = map[AhapConstants.keys.parameter] as Map<String, dynamic>;
+    Map<String, dynamic> parameter =
+        map[AhapConstants.keys.parameter] as Map<String, dynamic>;
 
     double time = (parameter[AhapConstants.keys.time] as num).toDouble();
-    double value = (parameter[AhapConstants.keys.parameterValue] as num).toDouble();
+    double value =
+        (parameter[AhapConstants.keys.parameterValue] as num).toDouble();
 
     AhapParameterType type;
 
-    if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticIntensityControl) {
+    if (parameter[AhapConstants.keys.parameterId] ==
+        AhapConstants.keys.hapticIntensityControl) {
       type = AhapParameterType.hapticIntensity;
-    } else if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticSharpnessControl) {
+    } else if (parameter[AhapConstants.keys.parameterId] ==
+        AhapConstants.keys.hapticSharpnessControl) {
       type = AhapParameterType.hapticSharpness;
     } else {
-      throw Exception('No support yet for this type of parameter: ${parameter[AhapConstants.keys.parameterId]}');
+      throw Exception(
+          'No support yet for this type of parameter: ${parameter[AhapConstants.keys.parameterId]}');
     }
 
     return [
@@ -174,7 +190,8 @@ class AhapEvent {
   }
 
   static List<AhapEvent> _mapBasicEvents(Map<String, dynamic> map) {
-    Map<String, dynamic> event = map[AhapConstants.keys.event] as Map<String, dynamic>;
+    Map<String, dynamic> event =
+        map[AhapConstants.keys.event] as Map<String, dynamic>;
 
     List parameters = event[AhapConstants.keys.eventParameters] as List;
     Map<String, dynamic>? intensityMap;
@@ -183,17 +200,21 @@ class AhapEvent {
     for (var p in parameters) {
       Map<String, dynamic> parameter = p as Map<String, dynamic>;
 
-      if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticIntensity) {
+      if (parameter[AhapConstants.keys.parameterId] ==
+          AhapConstants.keys.hapticIntensity) {
         intensityMap = parameter;
-      } else if (parameter[AhapConstants.keys.parameterId] == AhapConstants.keys.hapticSharpness) {
+      } else if (parameter[AhapConstants.keys.parameterId] ==
+          AhapConstants.keys.hapticSharpness) {
         sharpnessMap = parameter;
       }
     }
 
     double eventDuration;
 
-    if (event[AhapConstants.keys.eventType] == AhapConstants.keys.hapticContinuous) {
-      eventDuration = (event[AhapConstants.keys.eventDuration] as num).toDouble();
+    if (event[AhapConstants.keys.eventType] ==
+        AhapConstants.keys.hapticContinuous) {
+      eventDuration =
+          (event[AhapConstants.keys.eventDuration] as num).toDouble();
     } else {
       eventDuration = AhapConstants.transientEventDuration;
     }
@@ -202,8 +223,14 @@ class AhapEvent {
       AhapEvent(
         time: (event[AhapConstants.keys.time] as num).toDouble(),
         duration: eventDuration,
-        intensity: intensityMap != null ? (intensityMap[AhapConstants.keys.parameterValue] as num).toDouble() : 0,
-        sharpness: sharpnessMap != null ? (sharpnessMap[AhapConstants.keys.parameterValue] as num).toDouble() : 0,
+        intensity: intensityMap != null
+            ? (intensityMap[AhapConstants.keys.parameterValue] as num)
+                .toDouble()
+            : 0,
+        sharpness: sharpnessMap != null
+            ? (sharpnessMap[AhapConstants.keys.parameterValue] as num)
+                .toDouble()
+            : 0,
         type: AhapEventType.hapticEvent,
       )
     ];

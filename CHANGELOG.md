@@ -1,3 +1,8 @@
+# 1.4.0
+- Move to Swift Package Manager.
+- Regenerate example app.
+- Upgrade dependencies.
+
 # 1.3.2
 - Convert static images to `webp`.
 - Upgrade dependencies.

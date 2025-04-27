@@ -1,3 +1,6 @@
+# 1.4.1
+- Upgrade dependencies.
+
 # 1.4.0
 - Move to Swift Package Manager.
 - Regenerate example app.

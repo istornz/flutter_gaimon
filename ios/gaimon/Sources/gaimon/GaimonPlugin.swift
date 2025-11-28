@@ -5,11 +5,12 @@ import CoreHaptics
 @available(iOS 13.0, *)
 let hapticManager = HapticEngineManager()
 
-public class GaimonPlugin: NSObject, FlutterPlugin {
+public class GaimonPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "gaimon", binaryMessenger: registrar.messenger())
     let instance = GaimonPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
+    registrar.addSceneDelegate(instance)
   }
   
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

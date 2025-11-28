@@ -1,3 +1,10 @@
+# 1.4.2
+- Migrating to UISceneDelegate (Flutter 3.38.x iOS breaking change).
+- Default SDK environment is now 3.10.0 and Flutter SDK >= 3.38.0.
+- Min iOS version is now 13.0.
+- Update example app.
+- Upgrade dependencies.
+
 # 1.4.1
 - Upgrade dependencies.
 

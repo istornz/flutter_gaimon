@@ -42,31 +42,21 @@ class Gaimon {
   /// generate a custom pattern impact vibration
   static void patternFromData(String data) => Platform.isAndroid
       ? _patternFromAhapToWaveform(data)
-      : _channel.invokeMethod(
-          'pattern',
-          {
-            'data': data,
-          },
-        );
+      : _channel.invokeMethod('pattern', {'data': data});
 
   static void _patternFromAhapToWaveform(String data) {
     final waveform = ahapToWaveform(data);
-    patternFromWaveForm(
-      waveform.timings,
-      waveform.amplitudes,
-      waveform.repeat,
-    );
+    patternFromWaveForm(waveform.timings, waveform.amplitudes, waveform.repeat);
   }
 
   /// generate a custom pattern impact vibration from waveform (android only)
   static void patternFromWaveForm(
-          List<int> timings, List<int> amplitudes, bool repeat) =>
-      _channel.invokeMethod(
-        'pattern',
-        {
-          'timings': timings,
-          'amplitudes': amplitudes,
-          'repeat': repeat,
-        },
-      );
+    List<int> timings,
+    List<int> amplitudes,
+    bool repeat,
+  ) => _channel.invokeMethod('pattern', {
+    'timings': timings,
+    'amplitudes': amplitudes,
+    'repeat': repeat,
+  });
 }

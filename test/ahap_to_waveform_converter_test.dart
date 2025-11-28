@@ -262,70 +262,73 @@ void main() {
     });
 
     test(
-        'adds an empty AhapEvent if starting time is after current total timing',
-        () {
-      final ahapEvents = [
-        AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-        AhapEvent(time: 0.3, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-      ];
+      'adds an empty AhapEvent if starting time is after current total timing',
+      () {
+        final ahapEvents = [
+          AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+          AhapEvent(time: 0.3, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+        ];
 
-      final waveform = createWaveformFromAhapEvents(ahapEvents);
+        final waveform = createWaveformFromAhapEvents(ahapEvents);
 
-      expect(waveform.timings.length, 4);
-      expect(waveform.timings[0], 100);
-      expect(waveform.timings[1], 100);
-      expect(waveform.timings[2], 100);
-      expect(waveform.timings[3], 100);
-      expect(waveform.amplitudes.length, 4);
-      expect(waveform.amplitudes[0], 0);
-      expect(waveform.amplitudes[1], 128);
-      expect(waveform.amplitudes[2], 0);
-      expect(waveform.amplitudes[3], 128);
-    });
-
-    test(
-        'create waveform with overlapping events - higher intensity wins if comes last',
-        () {
-      final ahapEvents = [
-        AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-        AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-        AhapEvent(time: 0.15, duration: 0.1, intensity: 1, sharpness: 0.5),
-      ];
-
-      final waveform = createWaveformFromAhapEvents(ahapEvents);
-      expect(waveform.timings.length, 4);
-      expect(waveform.timings[0], 100);
-      expect(waveform.timings[1], 50);
-      expect(waveform.timings[2], 50);
-      expect(waveform.timings[3], 50);
-      expect(waveform.amplitudes.length, 4);
-      expect(waveform.amplitudes[0], 128);
-      expect(waveform.amplitudes[1], 128);
-      expect(waveform.amplitudes[2], 255);
-      expect(waveform.amplitudes[3], 255);
-    });
+        expect(waveform.timings.length, 4);
+        expect(waveform.timings[0], 100);
+        expect(waveform.timings[1], 100);
+        expect(waveform.timings[2], 100);
+        expect(waveform.timings[3], 100);
+        expect(waveform.amplitudes.length, 4);
+        expect(waveform.amplitudes[0], 0);
+        expect(waveform.amplitudes[1], 128);
+        expect(waveform.amplitudes[2], 0);
+        expect(waveform.amplitudes[3], 128);
+      },
+    );
 
     test(
-        'create waveform with overlapping events - higher intensity wins if comes first',
-        () {
-      final ahapEvents2 = [
-        AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-        AhapEvent(time: 0.1, duration: 0.1, intensity: 1, sharpness: 0.5),
-        AhapEvent(time: 0.15, duration: 0.1, intensity: 0.5, sharpness: 0.5),
-      ];
+      'create waveform with overlapping events - higher intensity wins if comes last',
+      () {
+        final ahapEvents = [
+          AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+          AhapEvent(time: 0.1, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+          AhapEvent(time: 0.15, duration: 0.1, intensity: 1, sharpness: 0.5),
+        ];
 
-      final waveform2 = createWaveformFromAhapEvents(ahapEvents2);
-      expect(waveform2.timings.length, 4);
-      expect(waveform2.timings[0], 100);
-      expect(waveform2.timings[1], 50);
-      expect(waveform2.timings[2], 50);
-      expect(waveform2.timings[3], 50);
+        final waveform = createWaveformFromAhapEvents(ahapEvents);
+        expect(waveform.timings.length, 4);
+        expect(waveform.timings[0], 100);
+        expect(waveform.timings[1], 50);
+        expect(waveform.timings[2], 50);
+        expect(waveform.timings[3], 50);
+        expect(waveform.amplitudes.length, 4);
+        expect(waveform.amplitudes[0], 128);
+        expect(waveform.amplitudes[1], 128);
+        expect(waveform.amplitudes[2], 255);
+        expect(waveform.amplitudes[3], 255);
+      },
+    );
 
-      expect(waveform2.amplitudes.length, 4);
-      expect(waveform2.amplitudes[0], 128);
-      expect(waveform2.amplitudes[1], 255);
-      expect(waveform2.amplitudes[2], 255);
-      expect(waveform2.amplitudes[3], 128);
-    });
+    test(
+      'create waveform with overlapping events - higher intensity wins if comes first',
+      () {
+        final ahapEvents2 = [
+          AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+          AhapEvent(time: 0.1, duration: 0.1, intensity: 1, sharpness: 0.5),
+          AhapEvent(time: 0.15, duration: 0.1, intensity: 0.5, sharpness: 0.5),
+        ];
+
+        final waveform2 = createWaveformFromAhapEvents(ahapEvents2);
+        expect(waveform2.timings.length, 4);
+        expect(waveform2.timings[0], 100);
+        expect(waveform2.timings[1], 50);
+        expect(waveform2.timings[2], 50);
+        expect(waveform2.timings[3], 50);
+
+        expect(waveform2.amplitudes.length, 4);
+        expect(waveform2.amplitudes[0], 128);
+        expect(waveform2.amplitudes[1], 255);
+        expect(waveform2.amplitudes[2], 255);
+        expect(waveform2.amplitudes[3], 128);
+      },
+    );
   });
 }

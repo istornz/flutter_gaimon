@@ -58,9 +58,11 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> input) {
     int end = borders[i + 1];
 
     List<AhapEvent> filteredEvents = ahapEvents
-        .where((element) =>
-            element.time.toMs() < end &&
-            (element.time + element.duration).toMs() > start)
+        .where(
+          (element) =>
+              element.time.toMs() < end &&
+              (element.time + element.duration).toMs() > start,
+        )
         .toList();
 
     timings.add(end - start);
@@ -88,21 +90,20 @@ Waveform createWaveformFromAhapEvents(List<AhapEvent> input) {
 
     time += timing;
     // find matching parameters for this timing
-    AhapEvent? parameter =
-        parameters.where((element) => element.time.toMs() <= time).lastOrNull;
+    AhapEvent? parameter = parameters
+        .where((element) => element.time.toMs() <= time)
+        .lastOrNull;
 
     // apply parameter to amplitude
     if (parameter != null) {
-      amplitudes[i] =
-          max(0, min(255, (amplitude * parameter.intensity).round()));
+      amplitudes[i] = max(
+        0,
+        min(255, (amplitude * parameter.intensity).round()),
+      );
     }
   }
 
-  return Waveform(
-    timings: timings,
-    amplitudes: amplitudes,
-    repeat: repeat,
-  );
+  return Waveform(timings: timings, amplitudes: amplitudes, repeat: repeat);
 }
 
 Waveform ahapToWaveform(String ahap) {

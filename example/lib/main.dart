@@ -125,6 +125,10 @@ class _MyAppState extends State<MyApp> {
                               },
                               child: const Text('😮‍💨 Inflate'),
                             ),
+                            TextButton(
+                              onPressed: () => Gaimon.stop(),
+                              child: const Text('⏹ Cancel'),
+                            ),
                           ],
                         ),
                       )

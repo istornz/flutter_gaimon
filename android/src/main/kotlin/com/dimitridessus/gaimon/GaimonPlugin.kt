@@ -110,6 +110,9 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
           }
         }
       }
+      "stop" -> {
+        vibrator.cancel()
+      }
       "pattern" -> {
         var callArgs: HashMap<String, Any> = call.arguments as HashMap<String, Any>
 

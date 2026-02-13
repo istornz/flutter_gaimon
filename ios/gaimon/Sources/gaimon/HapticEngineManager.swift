@@ -23,6 +23,10 @@ class HapticEngineManager: NSObject {
       }
     }
   
+  func stopHaptics() {
+    engine?.stop(completionHandler: { _ in })
+  }
+
   func startVibrationIOS(data: String) -> Void {
     var events = [CHHapticEvent]()
     for i in stride(from: 0, to: 1, by: 0.1) {

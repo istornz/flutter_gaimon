@@ -85,6 +85,11 @@ public class GaimonPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegat
         feedback.impactOccurred()
       }
       break
+    case "stop":
+      if #available(iOS 13.0, *) {
+        hapticManager.stopHaptics()
+      }
+      break
     case "pattern":
       if #available(iOS 13.0, *) {
         if let args = call.arguments as? Dictionary<String, Any>,

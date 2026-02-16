@@ -49,6 +49,9 @@ class Gaimon {
     patternFromWaveForm(waveform.timings, waveform.amplitudes, waveform.repeat);
   }
 
+  /// stop any ongoing vibration
+  static void stop() => _channel.invokeMethod('stop');
+
   /// generate a custom pattern impact vibration from waveform (android only)
   static void patternFromWaveForm(
     List<int> timings,

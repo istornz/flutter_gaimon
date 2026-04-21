@@ -1,3 +1,9 @@
+# 1.4.3
+- Added cancel vibration functionality (thanks to @marinat 👍).
+- Complete Swift Package Manager support for iOS by adding `FlutterFramework` package dependency.
+- Update SDK constraints to Dart `^3.11.0` and Flutter `>=3.41.0`.
+- Align CocoaPods iOS platform target to 13.0.
+
 # 1.4.2
 - Migrating to UISceneDelegate (Flutter 3.38.x iOS breaking change).
 - Default SDK environment is now 3.10.0 and Flutter SDK >= 3.38.0.

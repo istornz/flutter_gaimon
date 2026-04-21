@@ -27,6 +27,8 @@
 .dart_tool/
 .packages
 build/
+.build/
+.swiftpm/
 
 # FVM Version Cache
 .fvm/

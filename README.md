@@ -19,7 +19,9 @@
 
 ## 🧐 What is it ?
 
-Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It support custom pattern with `.ahap` file support.
+Gaimon is a **very simple** & **easy to use** plugin to include **Haptic feedback** in your app. It supports custom patterns with `.ahap` file support.
+
+While the custom haptic patterns and native actions are implemented for **iOS** and **Android**, Gaimon is safe to compile and use on **any platform** (Web, macOS, Windows, Linux, etc.). On unsupported platforms, it degrades gracefully by failing silently (no-op) and returning `false` for `canSupportsHaptic`.
 <br />
 
 <p align="center">

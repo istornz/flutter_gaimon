@@ -1,3 +1,11 @@
+# Unreleased
+- Fix `patternFromData` / `patternFromWaveForm` playing nothing on Android: the channel arguments were cast to `ArrayList<Long>`, but the standard codec sends `Integer` for values that fit in 32 bits (#16).
+- Always reply on the method channel, so a failing call no longer leaves the reply pending and swallows the error silently.
+- Route `light` / `medium` / `heavy` to the plugin's own graded Android effects instead of `HapticFeedback`, whose `performHapticFeedback` constants carry no intensity — the three were indistinguishable.
+- Calibrate the Android impacts and notification patterns against the iOS feedback generators, with a duration-only fallback for devices without amplitude control.
+- Guard the `pattern` branch behind the API 26 check the other branches already had, and resolve the vibrator through `VibratorManager` on API 31+.
+- Tag effects with `VibrationAttributes.USAGE_TOUCH` on API 33+, so they follow the system touch-feedback setting.
+
 # 1.4.3
 - Added cancel vibration functionality (thanks to @marinat 👍).
 - Complete Swift Package Manager support for iOS by adding `FlutterFramework` package dependency.

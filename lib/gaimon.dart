@@ -25,13 +25,23 @@ class Gaimon {
   static void warning() => _channel.invokeMethod('warning');
 
   /// generate a heavy impact vibration
-  static void heavy() => HapticFeedback.heavyImpact();
+  ///
+  /// On Android these reach the plugin's own graded effects. Routing them through
+  /// [HapticFeedback] instead lands on `performHapticFeedback` constants, which carry
+  /// no strength — light, medium and heavy then feel identical.
+  static void heavy() => Platform.isAndroid
+      ? _channel.invokeMethod('heavy')
+      : HapticFeedback.heavyImpact();
 
   /// generate a medium impact vibration
-  static void medium() => HapticFeedback.mediumImpact();
+  static void medium() => Platform.isAndroid
+      ? _channel.invokeMethod('medium')
+      : HapticFeedback.mediumImpact();
 
   /// generate a light impact vibration
-  static void light() => HapticFeedback.lightImpact();
+  static void light() => Platform.isAndroid
+      ? _channel.invokeMethod('light')
+      : HapticFeedback.lightImpact();
 
   /// generate a rigid impact vibration
   static void rigid() => _channel.invokeMethod('rigid');

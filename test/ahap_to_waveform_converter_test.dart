@@ -109,7 +109,7 @@ void main() {
       expect(ahapEventsTransient[0].sharpness, 0.5);
 
       expect(ahapEventsTransient[1].time, 0.997);
-      expect(ahapEventsTransient[1].duration, 0.1);
+      expect(ahapEventsTransient[1].duration, 0.02);
       expect(ahapEventsTransient[1].intensity, 0.829);
       expect(ahapEventsTransient[1].sharpness, 0.0);
     });
@@ -246,6 +246,31 @@ void main() {
   });
 
   group('Waveform creation', () {
+    test('plays a transient event as a short tap', () {
+      const ahap = '''
+    {
+      "Pattern": [
+        {
+          "Event": {
+            "Time": 0.0,
+            "EventType": "HapticTransient",
+            "EventParameters": [
+              {
+                "ParameterID": "HapticIntensity",
+                "ParameterValue": 1.0
+              }
+            ]
+          }
+        }
+      ]
+    }
+    ''';
+
+      final waveform = ahapToWaveform(ahap);
+      expect(waveform.timings, [20]);
+      expect(waveform.amplitudes, [255]);
+    });
+
     test('createWaveformFromAhapEvents', () {
       final ahapEvents = [
         AhapEvent(time: 0.0, duration: 0.1, intensity: 0.5, sharpness: 0.5),

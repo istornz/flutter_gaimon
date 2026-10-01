@@ -43,14 +43,14 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
 
     when (call.method) {
       "selection" -> vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE), vibrator)
-      "light" -> vibrate(oneShot(LIGHT_MS, LIGHT_AMPLITUDE, LIGHT_FALLBACK_MS, vibrator), vibrator)
-      "medium" -> vibrate(oneShot(MEDIUM_MS, MEDIUM_AMPLITUDE, MEDIUM_FALLBACK_MS, vibrator), vibrator)
-      "heavy" -> vibrate(oneShot(HEAVY_MS, HEAVY_AMPLITUDE, HEAVY_FALLBACK_MS, vibrator), vibrator)
-      "rigid" -> vibrate(oneShot(RIGID_MS, RIGID_AMPLITUDE, RIGID_FALLBACK_MS, vibrator), vibrator)
-      "soft" -> vibrate(oneShot(SOFT_MS, SOFT_AMPLITUDE, SOFT_FALLBACK_MS, vibrator), vibrator)
-      "success" -> vibrate(waveform(SUCCESS_TIMINGS, SUCCESS_AMPLITUDES, -1, vibrator), vibrator)
-      "error" -> vibrate(waveform(ERROR_TIMINGS, ERROR_AMPLITUDES, -1, vibrator), vibrator)
-      "warning" -> vibrate(waveform(WARNING_TIMINGS, WARNING_AMPLITUDES, -1, vibrator), vibrator)
+      "light" -> vibrate(impact(LIGHT, vibrator), vibrator)
+      "medium" -> vibrate(impact(MEDIUM, vibrator), vibrator)
+      "heavy" -> vibrate(impact(HEAVY, vibrator), vibrator)
+      "rigid" -> vibrate(impact(RIGID, vibrator), vibrator)
+      "soft" -> vibrate(impact(SOFT, vibrator), vibrator)
+      "success" -> vibrate(notification(SUCCESS, vibrator), vibrator)
+      "error" -> vibrate(notification(ERROR, vibrator), vibrator)
+      "warning" -> vibrate(notification(WARNING, vibrator), vibrator)
       "stop" -> vibrator.cancel()
       "pattern" -> {
         val callArgs = call.arguments as Map<*, *>
@@ -86,6 +86,39 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ->
       context.getSystemService(Vibrator::class.java)
     else -> context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+  }
+
+  /**
+   * Prefers the device's own haptic primitives, then the system's predefined effects, and
+   * only then drives the motor directly. A primitive or predefined effect is tuned by the
+   * manufacturer for its actuator — a crisp click that the system intensity setting governs
+   * — where a one-shot of several tens of milliseconds is felt as a buzz on most actuators.
+   * Primitives are used from API 31, where every id in [Impact] exists.
+   */
+  @RequiresApi(Build.VERSION_CODES.O)
+  private fun impact(impact: Impact, vibrator: Vibrator): VibrationEffect = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && vibrator.areAllPrimitivesSupported(impact.primitive) ->
+      VibrationEffect.startComposition().addPrimitive(impact.primitive, impact.scale).compose()
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
+      VibrationEffect.createPredefined(impact.predefined)
+    else ->
+      oneShot(impact.durationMs, impact.amplitude, impact.fallbackDurationMs, vibrator)
+  }
+
+  /** Plays the notification as a sequence of primitives when the device has them, as a waveform otherwise. */
+  @RequiresApi(Build.VERSION_CODES.O)
+  private fun notification(notification: Notification, vibrator: Vibrator): VibrationEffect {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+      vibrator.areAllPrimitivesSupported(VibrationEffect.Composition.PRIMITIVE_CLICK)) {
+      val composition = VibrationEffect.startComposition()
+      notification.clicks.forEach { (delayMs, scale) ->
+        composition.addPrimitive(VibrationEffect.Composition.PRIMITIVE_CLICK, scale, delayMs)
+      }
+
+      return composition.compose()
+    }
+
+    return waveform(notification.timings, notification.amplitudes, -1, vibrator)
   }
 
   /**
@@ -129,39 +162,60 @@ class GaimonPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   /**
-   * Impact durations and strengths mirror the iOS feedback generators, so a given call
-   * feels like its counterpart on both platforms. This is the tuning surface: the
-   * `*_FALLBACK_MS` values are what a device without amplitude control plays instead,
-   * where duration is the only lever left.
+   * One impact, in each of the three forms [impact] can play it. `primitive` and `scale`
+   * grade the strength on devices with composition primitives, `predefined` is the closest
+   * system effect where they are missing (it carries no strength), and the one-shot values
+   * are the last resort for devices older than API 29.
+   */
+  private class Impact(
+    val primitive: Int,
+    val scale: Float,
+    val predefined: Int,
+    val durationMs: Long,
+    val amplitude: Int,
+    val fallbackDurationMs: Long,
+  )
+
+  /**
+   * `clicks` pairs each click's delay — counted from the end of the previous click — with its
+   * strength. The delays are the waveform's onset spacing, which a click's own few
+   * milliseconds barely shift; the waveform stays the fallback for devices without primitives.
+   */
+  private class Notification(
+    val clicks: List<Pair<Int, Float>>,
+    val timings: LongArray,
+    val amplitudes: IntArray,
+  )
+
+  /**
+   * Strengths and rhythms mirror the iOS feedback generators, so a given call feels like
+   * its counterpart on both platforms. This is the tuning surface.
    */
   private companion object {
-    const val LIGHT_MS = 55L
-    const val LIGHT_AMPLITUDE = 153
-    const val LIGHT_FALLBACK_MS = 10L
+    // Composition and predefined-effect ids are compile-time constants, inlined into the
+    // bytecode, so referencing them does not require their API level at runtime.
+    val LIGHT = Impact(VibrationEffect.Composition.PRIMITIVE_CLICK, 0.5f, VibrationEffect.EFFECT_TICK, 55L, 153, 10L)
+    val MEDIUM = Impact(VibrationEffect.Composition.PRIMITIVE_CLICK, 0.75f, VibrationEffect.EFFECT_CLICK, 51L, 204, 40L)
+    val HEAVY = Impact(VibrationEffect.Composition.PRIMITIVE_CLICK, 1f, VibrationEffect.EFFECT_HEAVY_CLICK, 55L, 255, 90L)
+    val RIGID = Impact(VibrationEffect.Composition.PRIMITIVE_TICK, 1f, VibrationEffect.EFFECT_CLICK, 34L, 229, 25L)
+    val SOFT = Impact(VibrationEffect.Composition.PRIMITIVE_LOW_TICK, 1f, VibrationEffect.EFFECT_TICK, 82L, 178, 60L)
 
-    const val MEDIUM_MS = 51L
-    const val MEDIUM_AMPLITUDE = 204
-    const val MEDIUM_FALLBACK_MS = 40L
+    val SUCCESS = Notification(
+      clicks = listOf(0 to 0.7f, 110 to 1f),
+      timings = longArrayOf(0, 55, 55, 53),
+      amplitudes = intArrayOf(0, 178, 0, 255),
+    )
 
-    const val HEAVY_MS = 55L
-    const val HEAVY_AMPLITUDE = 255
-    const val HEAVY_FALLBACK_MS = 90L
+    val WARNING = Notification(
+      clicks = listOf(0 to 0.9f, 146 to 0.7f),
+      timings = longArrayOf(0, 55, 91, 55),
+      amplitudes = intArrayOf(0, 229, 0, 178),
+    )
 
-    const val RIGID_MS = 34L
-    const val RIGID_AMPLITUDE = 229
-    const val RIGID_FALLBACK_MS = 25L
-
-    const val SOFT_MS = 82L
-    const val SOFT_AMPLITUDE = 178
-    const val SOFT_FALLBACK_MS = 60L
-
-    val SUCCESS_TIMINGS = longArrayOf(0, 55, 55, 53)
-    val SUCCESS_AMPLITUDES = intArrayOf(0, 178, 0, 255)
-
-    val WARNING_TIMINGS = longArrayOf(0, 55, 91, 55)
-    val WARNING_AMPLITUDES = intArrayOf(0, 229, 0, 178)
-
-    val ERROR_TIMINGS = longArrayOf(0, 51, 45, 55, 43, 55, 41, 68)
-    val ERROR_AMPLITUDES = intArrayOf(0, 204, 0, 204, 0, 255, 0, 153)
+    val ERROR = Notification(
+      clicks = listOf(0 to 0.8f, 96 to 0.8f, 98 to 1f, 96 to 0.6f),
+      timings = longArrayOf(0, 51, 45, 55, 43, 55, 41, 68),
+      amplitudes = intArrayOf(0, 204, 0, 204, 0, 255, 0, 153),
+    )
   }
 }

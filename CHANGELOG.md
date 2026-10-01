@@ -2,6 +2,9 @@
 - Play the Android impacts (`light` / `medium` / `heavy` / `rigid` / `soft`) and notifications (`success` / `warning` / `error`) with the device's haptic primitives on API 31+, graded by their scale, and with the closest predefined effect on API 29-30. Driving the motor with a one-shot of ~50 ms is felt as a strong buzz on most actuators, and the system intensity setting barely softens it; the one-shot and waveform stay as the fallback for older devices.
 - Play AHAP `HapticTransient` events as a 20 ms tap on Android instead of 100 ms. AHAP gives a transient no duration and iOS plays it as a single short tap; a 100 ms drive at constant amplitude was felt as a buzz. `AhapConstants.transientEventDuration` still overrides it.
 
+# 1.5.1
+- Support Built-in Kotlin (AGP 9): no longer applies the Kotlin Gradle Plugin itself, so Flutter stops warning about it. Works with `android.builtInKotlin` set to `true` or `false`.
+
 # 1.5.0
 - Repair custom patterns and grade impact strength (thanks to @jim-caignard-betclic 👍).
 - Upgrade Gradle version.

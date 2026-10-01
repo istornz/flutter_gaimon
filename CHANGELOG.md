@@ -1,3 +1,6 @@
+# 1.5.1
+- Support Built-in Kotlin (AGP 9): no longer applies the Kotlin Gradle Plugin itself, so Flutter stops warning about it. Works with `android.builtInKotlin` set to `true` or `false`.
+
 # 1.5.0
 - Repair custom patterns and grade impact strength (thanks to @jim-caignard-betclic 👍).
 - Upgrade Gradle version.

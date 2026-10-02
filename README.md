@@ -5,7 +5,7 @@
 <div align="center" style="display: flex;align-items: center;justify-content: center;">
   <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/points/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
   <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/likes/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
-  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/popularity/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
+  <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/dm/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
   <a href="https://pub.dev/packages/gaimon"><img src="https://img.shields.io/pub/v/gaimon?style=for-the-badge" style="margin-right: 10px" /></a>
   <a href="https://github.com/istornz/gaimon"><img src="https://img.shields.io/github/stars/istornz/gaimon?style=for-the-badge" /></a>
 </div>
